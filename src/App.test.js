@@ -1,14 +1,22 @@
 import React from "react";
-import Enzyme, { shallow, cofigure, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import { shallow } from "enzyme";
+import { findByTestAttr } from "../test/testUtils";
 
 import App from "./App";
 
-Enzyme.configure({ adapter: new Adapter() });
+/**
+ * Factory function to create a ShallowWrapper for Congrats component
+ * @funtion setup
+ * @param {object} props
+ * @return {ShallowWrapper}
+ */
+
+const setup = (props = {}) => {
+  return shallow(<App {...props} />);
+};
 
 test("renders without crashing", () => {
-  const wrapper = shallow(<App />);
-  const appComponent = wrapper.find("[data-test='app-container']");
-
+  const wrapper = setup();
+  const appComponent = findByTestAttr(wrapper, "app-container");
   expect(appComponent.length).toBe(1);
 });
