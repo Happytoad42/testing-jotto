@@ -7,7 +7,6 @@ function App() {
     <div className="App">
       <div data-test="app-container">
         <h1>Jotto App</h1>
-        <Congrats />
       </div>
     </div>
   );
