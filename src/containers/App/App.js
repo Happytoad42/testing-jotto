@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Congrats from './Congrats';
-import GuessedWords from './GuessedWords';
+import Congrats from '../../components/Congrats/Congrats';
+import GuessedWords from '../../components/GuessedWords/GuessedWords';
 
 class App extends React.Component {
   constructor(props) {

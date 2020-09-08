@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { findByTestAttr, checkProps } from '../test/testUtils';
+import { findByTestAttr, checkProps } from '../../test/testUtils';
 
-import GuessedWords from './GuessedWords';
+import GuessedWords from './GuessedWords.js';
 
 const defaultProps = {
   guessedWords: [{ guessedWord: 'train', letterMatchCount: 3 }],
