@@ -10,13 +10,13 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 /**
- * Factory function to create ShallowWrapper for the connected  Input component
+ * Factory function to mock ShallowWrapper for the connected  Input component with redux-mock-store
  * @function setup
  * @param {object} initialState Initial state for the setup
  * @returns {ShallowWrapper}
  */
 const setup = (initialState = {}) => {
-  const store = mockStore(storeFactory(initialState));
+  const store = mockStore(initialState);
   return shallow(<Input store={store} />)
     .dive()
     .dive();
@@ -46,11 +46,25 @@ describe('Input', () => {
   });
 
   describe('word has been guessed', () => {
-    test('rendes without error', () => {});
+    let wrapper;
+    beforeEach(() => {
+      const initialState = { success: true };
+      wrapper = setup(initialState);
+    });
+    test('rendes without error', () => {
+      const component = findByTestAttr(wrapper, 'input-component');
+      expect(component.length).toBe(1);
+    });
 
-    test('not renders input box', () => {});
+    test('not renders input box', () => {
+      const inputBox = findByTestAttr(wrapper, 'input-box');
+      expect(inputBox.length).toBe(0);
+    });
 
-    test('not renders Submit button', () => {});
+    test('not renders Submit button', () => {
+      const submitButton = findByTestAttr(wrapper, 'submit-button');
+      expect(submitButton.length).toBe(0);
+    });
   });
 });
 
