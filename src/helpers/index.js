@@ -6,6 +6,7 @@
  * @returns {number} Number of letters contained to both words simultaniously
  */
 export function getLetterMatchCount(guessedWord, secretWord) {
+  debugger;
   const secretLetterSet = new Set(secretWord.split(''));
   const guessedLetterSet = new Set(guessedWord.split(''));
 

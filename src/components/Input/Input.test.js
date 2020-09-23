@@ -2,8 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-
-import { findByTestAttr, storeFactory } from '../../test/testUtils';
+import { findByTestAttr } from '../../test/testUtils';
 import Input from './Input';
 
 const middlewares = [thunk];
