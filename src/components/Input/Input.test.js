@@ -1,12 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { findByTestAttr } from '../../test/testUtils';
+import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
 
 /**
  * Factory function to mock ShallowWrapper for the connected  Input component with redux-mock-store
@@ -15,7 +10,7 @@ const mockStore = configureStore(middlewares);
  * @returns {ShallowWrapper}
  */
 const setup = (initialState = {}) => {
-  const store = mockStore(initialState);
+  const store = storeFactory(initialState);
   return shallow(<Input store={store} />)
     .dive()
     .dive();
