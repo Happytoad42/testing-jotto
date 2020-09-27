@@ -1,22 +1,50 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findByTestAttr } from '../../test/testUtils';
+import { findByTestAttr, storeFactory } from '../../test/testUtils';
 
 import App from './App';
 
 /**
- * Factory function to create a ShallowWrapper for Congrats component
- * @funtion setup
- * @param {object} props
- * @return {ShallowWrapper}
+ * Factory function to mock ShallowWrapper for the connected App component
+ * @function setup
+ * @param {object} initialState Initial state for the setup
+ * @returns {ShallowWrapper}
  */
-
-const setup = (props = {}) => {
-  return shallow(<App {...props} />);
+const setup = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  return shallow(<App store={store} />)
+    .dive()
+    .dive();
 };
 
 test('renders without crashing', () => {
   const wrapper = setup();
   const appComponent = findByTestAttr(wrapper, 'app-container');
   expect(appComponent.length).toBe(1);
+});
+
+describe('App component redux props', () => {
+  test('has success piece of state as prop', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
+    expect(successProp).toBe(success);
+  });
+  test('has secretWord piece of state as prop', () => {
+    const secretWord = 'party';
+    const wrapper = setup({ secretWord });
+    const secretWordProp = wrapper.instance().props.secretWord;
+    expect(secretWordProp).toBe(secretWord);
+  });
+  test('has guessedWords piece of state as prop', () => {
+    const guessedWords = [{ guessedWord: 'train', letterMatchCount: 3 }];
+    const wrapper = setup({ guessedWords });
+    const guessedWordsProp = wrapper.instance().props.guessedWords;
+    expect(guessedWordsProp).toBe(guessedWords);
+  });
+  test('has access to "getSecretWord" action creator', () => {
+    const wrapper = setup();
+    const getSecretWordAction = wrapper.instance().props.getSecretWord;
+    expect(getSecretWordAction).toBeInstanceOf(Function);
+  });
 });

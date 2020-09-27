@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './App.css';
+
+import { getSecretWord } from '../../actions';
 
 import Input from '../../components/Input/Input';
 import Congrats from '../../components/Congrats/Congrats';
 import GuessedWords from '../../components/GuessedWords/GuessedWords';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.dummyGuessedWords = [
+  render() {
+    const dummyGuessedWords = [
       {
         guessedWord: 'train',
         letterMatchCount: 3,
@@ -23,18 +24,20 @@ class App extends React.Component {
         letterMatchCount: 5,
       },
     ];
-  }
-
-  render() {
     return (
       <div data-test='app-container' className='container'>
         <h1 style={{ textAlign: 'center' }}>Jotto App</h1>
         <Input />
-        <Congrats success={false} />
-        <GuessedWords guessedWords={this.dummyGuessedWords} />
+        <Congrats success={this.props.success} />
+        <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  const { success, guessedWords, secretWord } = state;
+  return { success, guessedWords, secretWord };
+};
+
+export default connect(mapStateToProps, { getSecretWord })(App);
