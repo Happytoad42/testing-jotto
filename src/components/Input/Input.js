@@ -5,7 +5,7 @@ import { guessWord } from '../../actions';
 
 import Congrats from '../Congrats/Congrats';
 
-export class Input extends Component {
+export class UnconnectedInput extends Component {
   render() {
     let contents;
 
@@ -20,7 +20,11 @@ export class Input extends Component {
             data-test='input-box'
             className='mb-2 mx-sm-3'
           ></input>
-          <button className='btn btn-primary mb-2' data-test='submit-button'>
+          <button
+            onClick={() => this.props.guessWord('train')}
+            className='btn btn-primary mb-2'
+            data-test='submit-button'
+          >
             Submit
           </button>
         </form>
@@ -34,4 +38,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, { guessWord })(Input);
+export default connect(mapStateToProps, { guessWord })(UnconnectedInput);
