@@ -17,7 +17,6 @@ export const actionTypes = {
 export const guessWord = (guessedWord) => {
   return function (dispatch, getState) {
     const secretWord = getState().secretWord;
-    debugger;
     const letterMatchCount = getLetterMatchCount(secretWord, guessedWord);
 
     dispatch({

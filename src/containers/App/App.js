@@ -22,7 +22,7 @@ export class UnconnectedApp extends React.Component {
     return (
       <div data-test='app-container' className='container'>
         <h1 style={{ textAlign: 'center' }}>Jotto App</h1>
-        <Congrats success={this.props.success} />
+        <div>Secret word is {this.props.secretWord}</div>
         <Input />
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
